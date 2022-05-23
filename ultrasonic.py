@@ -2,13 +2,12 @@ import RPi.GPIO as GPIO
 import time
 from pprint import pprint
 from concurrent.futures import ProcessPoolExecutor
- 
 class Ultra:
 
-    def __init__(self,name,trigger,echo) -> None:
+    def __init__(self,name,trigger,echo):
 
         #GPIO Mode (BOARD / BCM)
-        GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
         self.name=name
 
         #set pin role
@@ -55,22 +54,21 @@ class Ultra:
         data["Distance"]=distance
         print("\n")
         pprint(data)
-    
-def printdata(Instance):
-    Instance.distance()
- 
+
+def get_data(inst):
+    inst.distance()
+
 if __name__ == '__main__':
     try:
-        front=Ultra(name="Front",trigger=8,echo=7)
-        #back=Ultra(name="Back",trigger=10,echo=11)
+        front=Ultra(name="Front",trigger=2,echo=3)
+        right=Ultra(name="Right",trigger=4,echo=14)
+        left=Ultra(name="Left",trigger=15,echo=17)
         #right=Ultra(name="Right",trigger=12,echo=13)
-        #left=Ultra(name="Left",trigger=15,echo=16)
-        #instance_list=[front,back,right,left]
+        instance_list=[front,right,left]
         while True:
-            front.distance()
-            time.sleep(0.5)
-            #with ProcessPoolExecutor(100) as executor:
-                #executor.map(Ultra.distance(),instance_list,chunksize=250)  
+            with ProcessPoolExecutor(8) as executor:               
+                executor.map(get_data,instance_list,chunksize=4)
+            time.sleep(0.1)
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
