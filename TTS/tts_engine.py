@@ -1,0 +1,29 @@
+from fileinput import filename
+import requests
+import sounddevice,soundfile
+import sys,os
+
+class TTSEngine:
+    def __init__(self,text) -> None:
+        self.filename="temp.wav"
+        self.url=f"http://[::1]:5002/api/tts?text={text}"
+        self.request()
+
+
+    def request(self):
+        r=requests.get(self.url)
+        with open(self.filename,'wb') as file:
+            file.write(r.content)
+    
+    def play(self):
+        data,sampling_rate=soundfile.read(self.filename,dtype='float32')
+        sounddevice.play(data,sampling_rate)
+        status=sounddevice.wait()
+        os.remove(self.filename)
+
+if __name__ == "__main__":
+    engine=TTSEngine("Hi!.This is Electra.I am a voice assistant designed to help blind people.")
+    engine.play()
+    sys.exit()
+
+
