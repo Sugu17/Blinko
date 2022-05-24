@@ -4,7 +4,7 @@ import time
 class PiGPS():
     
     def __init__(self) -> None:
-        self.gps=GPS()
+        self.gps=GPS("/dev/ttyAMA0",Tru)
         self.data={"Latitude":"", "Longitude":"", "Altitude":"", "Time":0}
     
     def get_coordinates(self):

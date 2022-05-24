@@ -22,7 +22,8 @@ class TTSEngine:
         os.remove(self.filename)
 
 if __name__ == "__main__":
-    engine=TTSEngine("Hi!.This is Electra.I am a voice assistant designed to help blind people.")
+    text=""
+    engine=TTSEngine(text)
     engine.play()
     sys.exit()
 
