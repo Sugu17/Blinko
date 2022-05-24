@@ -61,14 +61,14 @@ def get_data(inst):
 if __name__ == '__main__':
     try:
         front=Ultra(name="Front",trigger=2,echo=3)
-        right=Ultra(name="Right",trigger=4,echo=14)
-        left=Ultra(name="Left",trigger=15,echo=17)
-        #right=Ultra(name="Right",trigger=12,echo=13)
-        instance_list=[front,right,left]
+        right=Ultra(name="Right",trigger=4,echo=26)
+        left=Ultra(name="Left",trigger=20,echo=17)
+        back=Ultra(name="Back",trigger=18,echo=27)
+        instance_list=[front,right,left,back]
         while True:
-            with ProcessPoolExecutor(8) as executor:               
-                executor.map(get_data,instance_list,chunksize=4)
-            time.sleep(0.1)
+            with ProcessPoolExecutor(200) as executor:               
+                executor.map(get_data,instance_list,chunksize=100)
+            time.sleep(0.25)
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
