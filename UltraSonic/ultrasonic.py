@@ -66,7 +66,7 @@ class Ultra:
         self.data["Name"]=self.name
         self.data["Distance"]=self.distance
         self.detect()
-        pprint(self.data)
+        #pprint(self.data)
 
     def detect(self):
         if self.distance<=100:

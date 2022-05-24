@@ -1,7 +1,6 @@
 from pprint import pprint
 import sys
 import ipapi
-from collections import OrderedDict
 from datetime import datetime
 
 class GPS:
@@ -9,6 +8,7 @@ class GPS:
         self.response=ipapi.location()
 
     def get_location(self)->dict:
+        self.location={}
         self.location["Latitude"]=self.response["latitude"]
         self.location["Longitude"]=self.response["longitude"]
         self.location["Time"]=datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
