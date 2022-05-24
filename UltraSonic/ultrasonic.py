@@ -15,8 +15,8 @@ class Ultra:
         self.name=name
 
         #Initialize mail service
-        self.setup_email()
-        self.gps=get_gps.GPS()
+        #self.setup_email()
+        #self.gps=get_gps.GPS()
 
         #set pin role
         print(f"\nPin {trigger} set as trigger.")
@@ -62,15 +62,15 @@ class Ultra:
         TimeElapsed = StopTime - StartTime
         # multiply with the sonic speed (34300 cm/s)
         # and divide by 2, because there and back
-        distance = (TimeElapsed * 34300) / 2
+        self.distance = (TimeElapsed * 34300) / 2
         self.data["Name"]=self.name
-        self.data["Distance"]=distance
+        self.data["Distance"]=self.distance
         self.detect()
         pprint(self.data)
 
     def detect(self):
         if self.distance<=100:
-            file_name=f"{self.name}_immediate.wav"
+            file_name=f"{self.name}_immedaite.wav"
             play(filename=file_name)          
 
 def get_data(inst):
