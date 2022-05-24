@@ -1,0 +1,3 @@
+[submodule "Python-NEO-6M-GPS-Raspberry-Pi"]
+	path = GPS
+	url = https://github.com/FranzTscharf/Python-NEO-6M-GPS-Raspberry-Pi.git
