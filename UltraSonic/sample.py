@@ -65,14 +65,13 @@ class Ultra:
         self.distance = (TimeElapsed * 34300) / 2
         self.data["Name"]=self.name
         self.data["Distance"]=self.distance
+        self.detect()
         pprint(self.data)
-        return(self.data,self.detect())
 
     def detect(self)->bool:
         if self.distance<=100:
-            return True
-        else:
-            return False
+            file_name=f"{self.name}_immedaite.wav"
+            play(file_name)
 
 def get_data(inst):
     return inst.distance()
@@ -82,44 +81,6 @@ def play(filename):
     sounddevice.play(data,sampling_rate)
     status=sounddevice.wait()
 
-def process(list):
-    front_data,front_value=list[0]
-    right_data,right_value=list[1]
-    left_data,left_value=list[2]
-    back_data,back_value=list[3]
-    
-    
-    if front_value==False and right_value==False and left_value==False and back_value==True:
-        file_name="Back_immediate.wav"
-    elif front_value==False and right_value==False and left_value==True and back_value==False:
-        file_name="Left_immediate.wav"
-    elif front_value==False and right_value==False and left_value==True and back_value==True:
-        file_name="Left_and_Back_immediate.wav"
-    elif front_value==False and right_value==True and left_value==False and back_value==False:
-        file_name="Right_immediate.wav"
-    elif front_value==False and right_value==True and left_value==False and back_value==True:
-        file_name="Right_and_Back_immediate.wav"
-    elif front_value==False and right_value==True and left_value==True and back_value==False:
-        file_name="Right_and_Left_immediate.wav"
-    elif front_value==False and right_value==True and left_value==True and back_value==True:
-        file_name="Right_and_Left_Back_immediate.wav"
-    elif front_value==True and right_value==False and left_value==False and back_value==False:
-        file_name="Front_immediate.wav"
-    elif front_value==True and right_value==False and left_value==False and back_value==True:
-        file_name="Front_and_Back_immediate.wav"
-    elif front_value==True and right_value==False and left_value==True and back_value==False:
-        file_name="Front_and_Left_immediate.wav"
-    elif front_value==True and right_value==False and left_value==True and back_value==True:
-        file_name="Front_and_Left_Back_immediate.wav"
-    elif front_value==True and right_value==True and left_value==False and back_value==False:
-        file_name="Front_and_Right_immediate.wav"
-    elif front_value==True and right_value==True and left_value==False and back_value==True:
-        file_name="Front_and_Right_Back_immediate.wav"
-    elif front_value==True and right_value==True and left_value==True and back_value==False:
-        file_name="Front_and_Right_Left_immediate.wav"
-    elif front_value==True and right_value==True and left_value==True and back_value==True:
-        file_name="Front_and_Right_Left_Back_immediate.wav"
-    play(file_name)
 
 if __name__ == '__main__':
     try:
@@ -130,9 +91,8 @@ if __name__ == '__main__':
         instance_list=[front,right,left,back]
         while True:
             with ProcessPoolExecutor(200) as executor:
-                result=list(executor.map(get_data,instance_list,chunksize=100))
-                process(result)
-            time.sleep(1)
+                executor.map(get_data,instance_list,chunksize=100)
+            time.sleep(0.5)
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
