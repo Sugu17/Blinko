@@ -65,16 +65,17 @@ class Ultra:
         self.distance = (TimeElapsed * 34300) / 2
         self.data["Name"]=self.name
         self.data["Distance"]=self.distance
-        self.detect()
-        pprint(self.data)
+        return(self.data,self.detect())
+        #pprint(self.data)
 
-    def detect(self):
+    def detect(self)->bool:
         if self.distance<=100:
-            file_name=f"{self.name}_immedaite.wav"
-            play(filename=file_name)          
+            return True
+        else:
+            return False
 
 def get_data(inst):
-    inst.distance()
+    return inst.distance()
 
 def play(filename):
     data,sampling_rate=soundfile.read(filename,dtype='float32')
@@ -90,8 +91,9 @@ if __name__ == '__main__':
         back=Ultra(name="Back",trigger=18,echo=27)
         instance_list=[front,right,left,back]
         while True:
-            with ProcessPoolExecutor(200) as executor:               
-                executor.map(get_data,instance_list,chunksize=100)
+            with ProcessPoolExecutor(200) as executor:
+                print()               
+                pprint(list(executor.map(get_data,instance_list,chunksize=100)))
             time.sleep(0.5)
     except KeyboardInterrupt:
         print("Measurement stopped by User")
