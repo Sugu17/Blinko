@@ -31,23 +31,23 @@ if __name__ == '__main__':
  
       os.system('clear')
  
-      print
-      print ' GPS reading'
-      print '----------------------------------------'
-      print 'latitude    ' , gpsd.fix.latitude
-      print 'longitude   ' , gpsd.fix.longitude
-      print 'time utc    ' , gpsd.utc,' + ', gpsd.fix.time
-      print 'altitude (m)' , gpsd.fix.altitude
-      print 'eps         ' , gpsd.fix.eps
-      print 'epx         ' , gpsd.fix.epx
-      print 'epv         ' , gpsd.fix.epv
-      print 'ept         ' , gpsd.fix.ept
-      print 'speed (m/s) ' , gpsd.fix.speed
-      print 'climb       ' , gpsd.fix.climb
-      print 'track       ' , gpsd.fix.track
-      print 'mode        ' , gpsd.fix.mode
-      print
-      print 'sats        ' , gpsd.satellites
+      print ()
+      print (' GPS reading')
+      print ('----------------------------------------')
+      print ('Latitude    ' , gpsd.fix.latitude)
+      print ('Longitude   ' , gpsd.fix.longitude)
+      print ('Time UTC    ' , gpsd.utc,' + ', gpsd.fix.time)
+      print ('Altitude (m)' , gpsd.fix.altitude)
+      print ('eps         ' , gpsd.fix.eps)
+      print ('epx         ' , gpsd.fix.epx)
+      print ('epv         ' , gpsd.fix.epv)
+      print ('ept         ' , gpsd.fix.ept)
+      print ('Speed (m/s) ' , gpsd.fix.speed)
+      print ('Climb       ' , gpsd.fix.climb)
+      print ('Track       ' , gpsd.fix.track)
+      print ('Mode        ' , gpsd.fix.mode)
+      print ()
+      print ('Sats        ' , gpsd.satellites)
  
       time.sleep(5) #set to whatever
  
