@@ -1,21 +1,27 @@
 from operator import imod
 import RPi.GPIO as GPIO
-import sys
+import sys,time
 
-class Button:
-    def __init__(self,pin) -> None:
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)
-        self.pin=pin
-        GPIO.setup(self.pin,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(self.pin,GPIO.RISING,callback=self.button_callback)
+pin = 20
 
-    def button_callback(self):
-        try:
-            print("Pushed")
-        except KeyboardInterrupt:
-            GPIO.cleanup()
+def setup():
+       GPIO.setmode(GPIO.BCM)
+       GPIO.setup(pin, GPIO.IN)   
 
-if __name__=="__main":
-    button=Button(20)
-    sys.exit()
+def loop():
+        while True:
+              button_state = GPIO.input(pin)
+              if  button_state == False:
+                  print("Button Pressed")
+                  while GPIO.input(pin) == False:
+                    time.sleep(0.2)
+def endprogram():
+    GPIO.cleanup()
+
+if __name__ == "__main__":
+    setup()
+    try:
+        loop()
+    except KeyboardInterrupt:
+        print("keyboard interrupt detected")
+        endprogram()
