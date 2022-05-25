@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-import time
+import time,schedule
 from pprint import pprint
 from concurrent.futures import ProcessPoolExecutor
 import emails
@@ -13,23 +13,12 @@ class Ultra:
         #GPIO Mode (BOARD / BCM)
         GPIO.setmode(GPIO.BCM)
         self.name=name
-
-        #Initialize mail service
-        #self.setup_email()
-        #self.gps=get_gps.GPS()
-
         #set pin role
         print(f"\nPin {trigger} set as trigger.")
         print(f"\nPin {echo} set as echo.")
         self.trigger=trigger
         self.echo=echo
         self.set_pin_direction()
-
-    def setup_email(self):
-        sender="sugumar40579@gmail.com"
-        receiver="javidfirnas25@gmail.com"
-        self.subject="Emergency alert!"
-        self.email=emails.Email(sender,receiver)
 
     def set_pin_direction(self):
         #set GPIO direction (IN / OUT)
@@ -81,6 +70,24 @@ def play(filename):
     data,sampling_rate=soundfile.read(filename,dtype='float32')
     sounddevice.play(data,sampling_rate)
     status=sounddevice.wait()
+
+def send_sos():
+    gps=get_gps.GPS()
+    email=setup_email()
+    subject="Emergency alert!"
+    body="Person x might be in danger!\nPlease reach them as soon as possible.\n\nLast known location details:\n\n"
+    data=gps.get_location()
+    for key,value in data.items():
+        body+=f"{key} : {value}\n\n"
+    email.generate_email(subject,body)
+    email.send_email()
+schedule.every(1).minutes.do(send_sos)
+
+def setup_email():
+    sender="sugumar40579@gmail.com"
+    receiver="javidfirnas25@gmail.com"
+    email=emails.Email(sender,receiver) 
+    return email
 
 def process(list):
     front_data,front_value=list[0]
@@ -146,6 +153,7 @@ if __name__ == '__main__':
             with ProcessPoolExecutor(200) as executor:
                 result=list(executor.map(get_data,instance_list,chunksize=100))
                 process(result)
+            schedule.run_pending()
             time.sleep(0.25)
     except KeyboardInterrupt:
         print("Measurement stopped by User")
