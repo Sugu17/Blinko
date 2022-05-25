@@ -87,40 +87,54 @@ def process(list):
     right_data,right_value=list[1]
     left_data,left_value=list[2]
     back_data,back_value=list[3]
+    try:
+        if front_value==False and right_value==False and left_value==False and back_value==True:
+            file_name="Back_immediate.wav"
+            play(file_name)
+        elif front_value==False and right_value==False and left_value==True and back_value==False:
+            file_name="Left_immediate.wav"
+            play(file_name)
+        elif front_value==False and right_value==False and left_value==True and back_value==True:
+            file_name="Left_and_Back_immediate.wav"
+            play(file_name)
+        elif front_value==False and right_value==True and left_value==False and back_value==False:
+            file_name="Right_immediate.wav"
+            play(file_name)
+        elif front_value==False and right_value==True and left_value==False and back_value==True:
+            file_name="Right_and_Back_immediate.wav"
+        elif front_value==False and right_value==True and left_value==True and back_value==False:
+            file_name="Right_and_Left_immediate.wav"
+            play(file_name)
+        elif front_value==False and right_value==True and left_value==True and back_value==True:
+            file_name="Right_and_Left_Back_immediate.wav"
+            play(file_name)
+        elif front_value==True and right_value==False and left_value==False and back_value==False:
+            file_name="Front_immediate.wav"
+            play(file_name)
+        elif front_value==True and right_value==False and left_value==False and back_value==True:
+            file_name="Front_and_Back_immediate.wav"
+            play(file_name)
+        elif front_value==True and right_value==False and left_value==True and back_value==False:
+            file_name="Front_and_Left_immediate.wav"
+            play(file_name)
+        elif front_value==True and right_value==False and left_value==True and back_value==True:
+            file_name="Front_and_Left_Back_immediate.wav"
+            play(file_name)
+        elif front_value==True and right_value==True and left_value==False and back_value==False:
+            file_name="Front_and_Right_immediate.wav"
+            play(file_name)
+        elif front_value==True and right_value==True and left_value==False and back_value==True:
+            file_name="Front_and_Right_Back_immediate.wav"
+            play(file_name)
+        elif front_value==True and right_value==True and left_value==True and back_value==False:
+            file_name="Front_and_Right_Left_immediate.wav"
+            play(file_name)
+        elif front_value==True and right_value==True and left_value==True and back_value==True:
+            file_name="Front_and_Right_Left_Back_immediate.wav"
+            play(file_name) 
+    except UnboundLocalError:
+        pass
     
-    
-    if front_value==False and right_value==False and left_value==False and back_value==True:
-        file_name="Back_immediate.wav"
-    elif front_value==False and right_value==False and left_value==True and back_value==False:
-        file_name="Left_immediate.wav"
-    elif front_value==False and right_value==False and left_value==True and back_value==True:
-        file_name="Left_and_Back_immediate.wav"
-    elif front_value==False and right_value==True and left_value==False and back_value==False:
-        file_name="Right_immediate.wav"
-    elif front_value==False and right_value==True and left_value==False and back_value==True:
-        file_name="Right_and_Back_immediate.wav"
-    elif front_value==False and right_value==True and left_value==True and back_value==False:
-        file_name="Right_and_Left_immediate.wav"
-    elif front_value==False and right_value==True and left_value==True and back_value==True:
-        file_name="Right_and_Left_Back_immediate.wav"
-    elif front_value==True and right_value==False and left_value==False and back_value==False:
-        file_name="Front_immediate.wav"
-    elif front_value==True and right_value==False and left_value==False and back_value==True:
-        file_name="Front_and_Back_immediate.wav"
-    elif front_value==True and right_value==False and left_value==True and back_value==False:
-        file_name="Front_and_Left_immediate.wav"
-    elif front_value==True and right_value==False and left_value==True and back_value==True:
-        file_name="Front_and_Left_Back_immediate.wav"
-    elif front_value==True and right_value==True and left_value==False and back_value==False:
-        file_name="Front_and_Right_immediate.wav"
-    elif front_value==True and right_value==True and left_value==False and back_value==True:
-        file_name="Front_and_Right_Back_immediate.wav"
-    elif front_value==True and right_value==True and left_value==True and back_value==False:
-        file_name="Front_and_Right_Left_immediate.wav"
-    elif front_value==True and right_value==True and left_value==True and back_value==True:
-        file_name="Front_and_Right_Left_Back_immediate.wav"
-    play(file_name)
-
 if __name__ == '__main__':
     try:
         front=Ultra(name="Front",trigger=2,echo=3)
