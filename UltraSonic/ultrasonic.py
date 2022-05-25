@@ -71,7 +71,13 @@ def play(filename):
     sounddevice.play(data,sampling_rate)
     status=sounddevice.wait()
 
-def send_sos(subject,body):
+def setup_email():
+    sender="sugumar40579@gmail.com"
+    receiver="javidfirnas25@gmail.com"
+    email=emails.Email(sender,receiver) 
+    return email
+    
+def send_sos(subject="Location update!",body="\nLast known location details:\n\n"):
     gps=get_gps.GPS()
     email=setup_email()
     data=gps.get_location()
@@ -80,15 +86,7 @@ def send_sos(subject,body):
     email.generate_email(subject,body)
     email.send_email()
 
-subject="Location update!"
-body="\nLast known location details:\n\n"
-schedule.every(1).minutes.do(send_sos(subject,body))
-
-def setup_email():
-    sender="sugumar40579@gmail.com"
-    receiver="javidfirnas25@gmail.com"
-    email=emails.Email(sender,receiver) 
-    return email
+schedule.every(1).minutes.do(send_sos)
 
 def process(list):
     front_data,front_value=list[0]
@@ -161,7 +159,7 @@ if __name__ == '__main__':
                 result=list(executor.map(get_data,instance_list,chunksize=100))
                 process(result)
             schedule.run_pending()
-            time.sleep(0.25)
+            time.sleep(0.1)
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
