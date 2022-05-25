@@ -71,17 +71,18 @@ def play(filename):
     sounddevice.play(data,sampling_rate)
     status=sounddevice.wait()
 
-def send_sos():
+def send_sos(subject,body):
     gps=get_gps.GPS()
     email=setup_email()
-    subject="Location update!"
-    body="\nLast known location details:\n\n"
     data=gps.get_location()
     for key,value in data.items():
         body+=f"{key} : {value}\n\n"
     email.generate_email(subject,body)
     email.send_email()
-schedule.every(1).minutes.do(send_sos)
+
+subject="Location update!"
+body="\nLast known location details:\n\n"
+schedule.every(1).minutes.do(send_sos(subject,body))
 
 def setup_email():
     sender="sugumar40579@gmail.com"
@@ -138,8 +139,12 @@ def process(list):
             play(file_name)
         elif front_value==True and right_value==True and left_value==True and back_value==True:
             file_name="audio/Front_and_Right_Left_Back_immediate.wav"
-            send_sos()
-            play(file_name) 
+            warning="audio/sos_alert.wav"
+            play(file_name)
+            play(warning)
+            sub="Emergency alert!"
+            content="Person x might be in danger!\nPlease reach them as soon as possible.\n\nLast known location details:\n\n"
+            send_sos(sub,content)
             
     except UnboundLocalError:
         pass
