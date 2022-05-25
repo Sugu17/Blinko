@@ -74,8 +74,8 @@ def play(filename):
 def send_sos():
     gps=get_gps.GPS()
     email=setup_email()
-    subject="Emergency alert!"
-    body="Person x might be in danger!\nPlease reach them as soon as possible.\n\nLast known location details:\n\n"
+    subject="Location update!"
+    body="\nLast known location details:\n\n"
     data=gps.get_location()
     for key,value in data.items():
         body+=f"{key} : {value}\n\n"
@@ -138,7 +138,9 @@ def process(list):
             play(file_name)
         elif front_value==True and right_value==True and left_value==True and back_value==True:
             file_name="audio/Front_and_Right_Left_Back_immediate.wav"
+            send_sos()
             play(file_name) 
+            
     except UnboundLocalError:
         pass
 
