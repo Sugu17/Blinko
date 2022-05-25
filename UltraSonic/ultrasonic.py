@@ -69,7 +69,7 @@ class Ultra:
         return(self.data,self.detect())
 
     def detect(self)->bool:
-        if self.distance<=100:
+        if self.distance<=20:
             return True
         else:
             return False
@@ -146,7 +146,7 @@ if __name__ == '__main__':
             with ProcessPoolExecutor(200) as executor:
                 result=list(executor.map(get_data,instance_list,chunksize=100))
                 process(result)
-            time.sleep(1)
+            time.sleep(0.25)
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
