@@ -89,57 +89,57 @@ def process(list):
     back_data,back_value=list[3]
     try:
         if front_value==False and right_value==False and left_value==False and back_value==True:
-            file_name="Back_immediate.wav"
+            file_name="audio/Back_immediate.wav"
             play(file_name)
         elif front_value==False and right_value==False and left_value==True and back_value==False:
-            file_name="Left_immediate.wav"
+            file_name="audio/Left_immediate.wav"
             play(file_name)
         elif front_value==False and right_value==False and left_value==True and back_value==True:
-            file_name="Left_and_Back_immediate.wav"
+            file_name="audio/Left_and_Back_immediate.wav"
             play(file_name)
         elif front_value==False and right_value==True and left_value==False and back_value==False:
-            file_name="Right_immediate.wav"
+            file_name="audio/Right_immediate.wav"
             play(file_name)
         elif front_value==False and right_value==True and left_value==False and back_value==True:
-            file_name="Right_and_Back_immediate.wav"
+            file_name="audio/Right_and_Back_immediate.wav"
         elif front_value==False and right_value==True and left_value==True and back_value==False:
-            file_name="Right_and_Left_immediate.wav"
+            file_name="audio/Right_and_Left_immediate.wav"
             play(file_name)
         elif front_value==False and right_value==True and left_value==True and back_value==True:
-            file_name="Right_and_Left_Back_immediate.wav"
+            file_name="audio/Right_and_Left_Back_immediate.wav"
             play(file_name)
         elif front_value==True and right_value==False and left_value==False and back_value==False:
-            file_name="Front_immediate.wav"
+            file_name="audio/Front_immediate.wav"
             play(file_name)
         elif front_value==True and right_value==False and left_value==False and back_value==True:
-            file_name="Front_and_Back_immediate.wav"
+            file_name="audio/Front_and_Back_immediate.wav"
             play(file_name)
         elif front_value==True and right_value==False and left_value==True and back_value==False:
-            file_name="Front_and_Left_immediate.wav"
+            file_name="audio/Front_and_Left_immediate.wav"
             play(file_name)
         elif front_value==True and right_value==False and left_value==True and back_value==True:
-            file_name="Front_and_Left_Back_immediate.wav"
+            file_name="audio/Front_and_Left_Back_immediate.wav"
             play(file_name)
         elif front_value==True and right_value==True and left_value==False and back_value==False:
-            file_name="Front_and_Right_immediate.wav"
+            file_name="audio/Front_and_Right_immediate.wav"
             play(file_name)
         elif front_value==True and right_value==True and left_value==False and back_value==True:
-            file_name="Front_and_Right_Back_immediate.wav"
+            file_name="audio/Front_and_Right_Back_immediate.wav"
             play(file_name)
         elif front_value==True and right_value==True and left_value==True and back_value==False:
-            file_name="Front_and_Right_Left_immediate.wav"
+            file_name="audio/Front_and_Right_Left_immediate.wav"
             play(file_name)
         elif front_value==True and right_value==True and left_value==True and back_value==True:
-            file_name="Front_and_Right_Left_Back_immediate.wav"
+            file_name="audio/Front_and_Right_Left_Back_immediate.wav"
             play(file_name) 
     except UnboundLocalError:
         pass
-    
+
 if __name__ == '__main__':
     try:
         front=Ultra(name="Front",trigger=2,echo=3)
-        right=Ultra(name="Right",trigger=4,echo=26)
-        left=Ultra(name="Left",trigger=20,echo=17)
+        right=Ultra(name="Right",trigger=4,echo=14)
+        left=Ultra(name="Left",trigger=15,echo=17)
         back=Ultra(name="Back",trigger=18,echo=27)
         instance_list=[front,right,left,back]
         while True:
